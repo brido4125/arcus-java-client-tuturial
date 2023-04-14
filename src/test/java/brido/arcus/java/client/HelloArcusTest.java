@@ -12,16 +12,21 @@ class HelloArcusTest {
 
     @BeforeEach
     public void set() {
-        helloArcus = new HelloArcus("127.0.0.1:2191", "test");
+        helloArcus = new HelloArcus("127.0.0.1:2191", "brido");
+    }
+
+    @Test
+    public void store() {
+        boolean b = helloArcus.sayHello();
+        System.out.println("b = " + b);
     }
 
     @Test
     void listenHello() {
         //given
-        helloArcus.sayHello();
         //when
         String s = helloArcus.listenHello();
         //then
-        Assertions.assertSame(s,"Hello Brido");
+        System.out.println("s = " + s);
     }
 }

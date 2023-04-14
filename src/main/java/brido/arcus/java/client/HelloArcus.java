@@ -16,6 +16,7 @@ public class HelloArcus {
     public HelloArcus(String arcusAdmin, String serviceCode) {
         this.arcusAdmin = arcusAdmin;
         this.serviceCode = serviceCode;
+        System.setProperty("net.spy.log.LoggerImpl", "net.spy.memcached.compat.log.Log4JLogger");
         this.arcusClient = ArcusClient.createArcusClient(arcusAdmin, serviceCode, new ConnectionFactoryBuilder());
     }
 
@@ -23,23 +24,25 @@ public class HelloArcus {
         Future<Boolean> future = null;
         boolean setSuccess = false;
 
-        future = this.arcusClient.set("test:hello", 600, "Hello Brido");
-
         try {
-            setSuccess = future.get(700L, TimeUnit.MICROSECONDS);
+            future = this.arcusClient.set("test", 600, "Brido");
+            setSuccess = future.get(700L, TimeUnit.MILLISECONDS);
+            return setSuccess;
         } catch (Exception e) {
-            if (future != null) future.cancel(true);
+            System.out.println("future = " + future);
+            if (future != null)
+                future.cancel(true);
             e.printStackTrace();
         }
-        return setSuccess;
+        return false;
     }
 
     public String listenHello() {
         Future<Object> future = null;
-        String res = "Not";
-        future = this.arcusClient.asyncGet("test:hello");
+        String res = "Not Yet";
+        future = this.arcusClient.asyncGet("test");
         try {
-            res = (String)future.get(700L, TimeUnit.MICROSECONDS);
+            res = (String)future.get(700L, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             if (future != null) future.cancel(true);
             e.printStackTrace();
