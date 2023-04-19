@@ -1,12 +1,11 @@
-import net.spy.memcached.collection.CollectionAttributes;
-import net.spy.memcached.collection.Element;
-import net.spy.memcached.collection.ElementFlagFilter;
-import net.spy.memcached.collection.ElementValueType;
+import net.spy.memcached.collection.*;
 import net.spy.memcached.internal.CollectionFuture;
+import net.spy.memcached.internal.SMGetFuture;
 import net.spy.memcached.ops.CollectionOperationStatus;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class ArcusBop extends ArcusInfo{
     public ArcusBop(String arcusAdmin, String serviceCode) {
@@ -80,4 +79,22 @@ public class ArcusBop extends ArcusInfo{
         }
     }
 
+    public int getSortMergeBOP(List<String> keyList, long from, long to,int count) {
+        SMGetMode smGetMode = SMGetMode.DUPLICATE;
+        ElementFlagFilter elementFlagFilter = ElementFlagFilter.DO_NOT_FILTER;
+        SMGetFuture<List<SMGetElement<Object>>> future = null;
+        List<SMGetElement<Object>> result = null;
+        try {
+            future = arcusClient.asyncBopSortMergeGet(keyList, from, to, elementFlagFilter, count ,smGetMode);
+            result = future.get(1000L, TimeUnit.MILLISECONDS);
+            for (SMGetElement<Object> element : result) {
+                System.out.println("key: " + element.getKey() + ", bkey: " + element.getBkey() + ", value: " + element.getValue());
+            }
+            return result.size();
+        }catch (Exception e) {
+            if (future != null) future.cancel(true);
+            e.printStackTrace();
+        }
+        return result.size();
+    }
 }

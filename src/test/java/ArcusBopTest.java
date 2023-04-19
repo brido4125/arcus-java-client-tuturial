@@ -106,4 +106,47 @@ public class ArcusBopTest {
         //then
         assertThat(ret).isEqualTo(1);
     }
+
+    @Test
+    @DisplayName("BOP Sort Merge API 성공 테스트")
+    void sortMergeBOPSuccessTest() {
+
+        CollectionAttributes collectionAttributes = new CollectionAttributes();
+        collectionAttributes.setExpireTime(10);
+        //given
+        arcusClient.insertBop(TEST_PREFIX + ":A", 0L, "VALUE1", collectionAttributes);
+        arcusClient.insertBop(TEST_PREFIX + ":A", 7L, "VALUE2", collectionAttributes);
+        arcusClient.insertBop(TEST_PREFIX + ":A", 14L, "VALUE3", collectionAttributes);
+        arcusClient.insertBop(TEST_PREFIX + ":A", 21L, "VALUE4", collectionAttributes);
+        arcusClient.insertBop(TEST_PREFIX + ":A", 28L, "VALUE5", collectionAttributes);
+
+        arcusClient.insertBop(TEST_PREFIX + ":B", 1L, "VALUE1", collectionAttributes);
+        arcusClient.insertBop(TEST_PREFIX + ":B", 5L, "VALUE2", collectionAttributes);
+        arcusClient.insertBop(TEST_PREFIX + ":B", 10L, "VALUE3", collectionAttributes);
+        arcusClient.insertBop(TEST_PREFIX + ":B", 15L, "VALUE4", collectionAttributes);
+        arcusClient.insertBop(TEST_PREFIX + ":B", 20L, "VALUE5", collectionAttributes);
+
+        arcusClient.insertBop(TEST_PREFIX + ":C", 3L, "VALUE1", collectionAttributes);
+        arcusClient.insertBop(TEST_PREFIX + ":C", 6L, "VALUE2", collectionAttributes);
+        arcusClient.insertBop(TEST_PREFIX + ":C", 9L, "VALUE3", collectionAttributes);
+        arcusClient.insertBop(TEST_PREFIX + ":C", 12L, "VALUE4", collectionAttributes);
+        arcusClient.insertBop(TEST_PREFIX + ":C", 16L, "VALUE5", collectionAttributes);
+
+        List<String> keyList = new ArrayList<>() {
+            {
+                add(TEST_PREFIX + ":A");
+                add(TEST_PREFIX + ":B");
+                add(TEST_PREFIX + ":C");
+            }
+        };
+
+        long bKeyFrom = 30L;
+        long bKeyTo = 10L;
+        int count = 20; // 정렬되는 elem의 수보다는 커야함, from - to 값으로 설정
+
+        //when
+        int ret = arcusClient.getSortMergeBOP(keyList, bKeyFrom, bKeyTo, count);
+        //then
+        assertThat(ret).isEqualTo(8);
+    }
 }
