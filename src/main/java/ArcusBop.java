@@ -97,4 +97,16 @@ public class ArcusBop extends ArcusInfo{
         }
         return result.size();
     }
+
+    public int getPositionBOP(String key, long bKey, BTreeOrder bTreeOrder) {
+        CollectionFuture<Integer> future = null;
+        try {
+            future = arcusClient.asyncBopFindPosition(key, bKey, bTreeOrder);
+            return future.get();
+        } catch (Exception e) {
+            if (future != null) future.cancel(true);
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }
