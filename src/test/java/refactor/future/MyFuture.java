@@ -1,4 +1,4 @@
-package refactor;
+package refactor.future;
 
 import net.spy.memcached.ops.Operation;
 import refactor.cancel.FutureCancel;
