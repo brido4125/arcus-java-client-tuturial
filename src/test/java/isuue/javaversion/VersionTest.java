@@ -55,4 +55,11 @@ public class VersionTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    void getVersion() {
+        //AccessControlException
+        String version = System.getProperty("java.version");
+        System.out.println(version);
+    }
 }

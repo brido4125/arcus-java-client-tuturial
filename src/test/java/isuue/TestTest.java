@@ -25,4 +25,23 @@ class TestTest {
             System.out.println(s);
         }
     }
+
+
+    @Test
+    void ifTest() {
+        String a = null;
+        String b = "hi";
+        if (!(true || true)) {
+            System.out.println("hi1");
+        }
+        if (!(true || false)) {
+            System.out.println("hi2");
+        }
+        if (!(false || true)) {
+            System.out.println("hi3");
+        }
+        if (!(false || false)) {
+            System.out.println("hi4");
+        }
+    }
 }
