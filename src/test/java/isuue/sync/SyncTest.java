@@ -1,15 +1,19 @@
 package isuue.sync;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public class SyncTest {
     private static String TEST = "INIT";
-    private CountDownLatch latch = new CountDownLatch(2);
+    private CountDownLatch latch;
 
     @Test
     void syncTest() throws InterruptedException {
+        latch = new CountDownLatch(2);
 
         Thread thread1 = new Thread(this::setUp);
         thread1.start();
@@ -18,6 +22,50 @@ public class SyncTest {
         thread2.start();
 
         latch.await();
+    }
+
+    @Test
+    @DisplayName("synchronized의 인자가 변수명이 동일하더라도 서로 다른 객체라면 동기화가 되지 않음")
+    void syncTest2() throws InterruptedException {
+        latch = new CountDownLatch(2);
+        Thread thread1 = new Thread(() -> setUpWithObject(latch));
+        thread1.start();
+        sleep(500);
+        Thread thread2 = new Thread(() -> setUpWithObject(latch));
+        thread2.start();
+
+        latch.await();
+    }
+
+    @Test
+    @DisplayName("Collection 객체는 내부의 요소가 달라져야 서로 다른 hashcode 값을 가짐")
+    void syncTest3() throws InterruptedException {
+        latch = new CountDownLatch(2);
+        Thread thread1 = new Thread(() -> setUpWithListConcreteElem(latch,"hi"));
+        thread1.start();
+        sleep(500);
+        Thread thread2 = new Thread(() -> setUpWithListConcreteElem(latch,"hello"));
+        thread2.start();
+
+        latch.await();
+    }
+
+    void setUpWithObject(CountDownLatch latch) {
+        Object test = new Object();
+        synchronized (test) {
+            System.out.println("test.hashCode() = " + test.hashCode());
+            sleep(5000);
+        }
+        latch.countDown();
+    }
+
+    void setUpWithListConcreteElem(CountDownLatch latch, String target) {
+        List<String> test = new LinkedList<>();
+        test.add(target);
+        synchronized (test) {
+            System.out.println("test.hashCode() = " + test.hashCode());
+        }
+        latch.countDown();
     }
 
     /*
