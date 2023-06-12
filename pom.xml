@@ -23,12 +23,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.navercorp.arcus</groupId>
-            <artifactId>arcus-java-client</artifactId>
-            <version>1.13.2</version>
-        </dependency>
-
         <!-- 로거 의존성을 추가합니다. -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
