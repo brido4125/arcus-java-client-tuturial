@@ -19,6 +19,34 @@ public class FutureTaskTest {
     String s = task.get();
     System.out.println("s = " + s);
   }
+
+
+  @Test
+  void callableBlockingTest() {
+    ExecutorService executorService = Executors.newFixedThreadPool(1);
+    NoneFutureTask task = new NoneFutureTask();
+    Future submit = executorService.submit(task);//submit 자체가 Future 리턴 -> 결국 get 호출시 Blocking 가능성
+    System.out.println("main thread");
+
+  }
+
+  private void sleep(long ms) {
+    try {
+      Thread.sleep(ms);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+
+  private static class NoneFutureTask implements Callable {
+    @Override
+    public Object call() throws Exception {
+      System.out.println("NoneFutureTask.call");
+      return "NoneFutureTask.call";
+    }
+  }
+
   private static class Task<T> extends FutureTask<T> {
     private final AtomicBoolean isRunning = new AtomicBoolean(false);
 
