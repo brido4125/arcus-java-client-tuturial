@@ -37,7 +37,7 @@ public class ArcusLopTest {
         CollectionAttributes attributesForCreate = new CollectionAttributes();
 
         List<Object> elements = new ArrayList<>();
-        for (int i = 0; i <= 500; i++) {
+        for (int i = 0; i <= 1000; i++) {
             elements.add(TEST_VAL + i);
         }
         Map<Integer, CollectionOperationStatus> rv = arcusClient.insertLopPipedBulk(TEST_KEY, elements, attributesForCreate);
