@@ -14,7 +14,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>local</id>
+            <name>local Repository</name>
+            <url>file://${project.basedir}/lib</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+        <dependency>
+            <groupId>com.navercorp.arcus</groupId>
+            <artifactId>arcus-java-client</artifactId>
+            <version>1.13.3</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -22,14 +36,6 @@
             <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.navercorp.arcus/arcus-java-client -->
-        <dependency>
-            <groupId>com.navercorp.arcus</groupId>
-            <artifactId>arcus-java-client</artifactId>
-            <version>1.13.2</version>
-        </dependency>
-
 
         <!-- 로거 의존성을 추가합니다. -->
         <dependency>

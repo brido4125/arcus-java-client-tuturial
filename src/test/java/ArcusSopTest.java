@@ -26,6 +26,7 @@ public class ArcusSopTest {
   public void clear() {
     boolean b = arcusClient.deleteAll(TEST_PREFIX);
   }
+
   @Test
   void existsTest() {
     List<Object> elements = new ArrayList<>();
@@ -44,5 +45,30 @@ public class ArcusSopTest {
       Assertions.assertThat(objectBooleanEntry.getValue()).isTrue();
     }
 
+  }
+
+  @Test
+  void noneExistTest() {
+    List<Object> elements = new ArrayList<>();
+
+    for (int i = 0; i < 400; i++) {
+      elements.add(TEST_VAL + i);
+    }
+
+
+    Map<Integer, CollectionOperationStatus> insertRv = arcusClient.insertSopPiped(TEST_KEY, elements);
+    Assertions.assertThat(insertRv.size()).isEqualTo(0);
+
+    elements.clear();
+
+    for (int i = 0; i < 400; i++) {
+      elements.add(TEST_VAL + (i + 400));
+    }
+
+    Map<Object, Boolean> objectBooleanMap = arcusClient.existSopPiped(TEST_KEY, elements);
+    Assertions.assertThat(objectBooleanMap.size()).isEqualTo(400);
+    for (Map.Entry<Object, Boolean> objectBooleanEntry : objectBooleanMap.entrySet()) {
+      Assertions.assertThat(objectBooleanEntry.getValue()).isFalse();
+    }
   }
 }
