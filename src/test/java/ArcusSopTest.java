@@ -29,7 +29,7 @@ public class ArcusSopTest {
 
   @Test
   void existsTest() {
-    List<Object> elements = new ArrayList<>();
+    List<String> elements = new ArrayList<>();
 
     for (int i = 0; i < 400; i++) {
       elements.add(TEST_VAL + i);
@@ -49,7 +49,7 @@ public class ArcusSopTest {
 
   @Test
   void noneExistTest() {
-    List<Object> elements = new ArrayList<>();
+    List<String> elements = new ArrayList<>();
 
     for (int i = 0; i < 400; i++) {
       elements.add(TEST_VAL + i);
