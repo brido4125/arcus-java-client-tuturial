@@ -26,7 +26,7 @@ public class ArcusSop extends ArcusInfo {
     return result;
   }
 
-  public <T> Map<Integer, CollectionOperationStatus> insertSopPiped(String key, List<String> values) {
+  public Map<Integer, CollectionOperationStatus> insertSopPiped(String key, List<String> values) {
     Map<Integer, CollectionOperationStatus> result = null;
     try {
       CollectionFuture<Map<Integer, CollectionOperationStatus>> rv = arcusClient.asyncSopPipedInsertBulk(key, convertObject(values), new CollectionAttributes());
