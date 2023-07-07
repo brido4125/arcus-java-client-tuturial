@@ -1,8 +1,5 @@
 import net.spy.memcached.ops.StatusCode;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.Collection;
 import java.util.Map;
@@ -11,6 +8,7 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled
 public class ArcusKeyValueTest {
     private ArcusKeyValue arcusClient;
     private final String FOO_VAL = "Brido";

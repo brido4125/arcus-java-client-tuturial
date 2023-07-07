@@ -12,7 +12,11 @@ public class TimeoutTest {
 
   @BeforeEach
   public void set() {
-    arcusClient = new ArcusKeyValue("127.0.0.1:2191", "brido");
+    arcusClient = new ArcusKeyValue("jam2in-s001:20000," +
+            "jam2in-s002:20000," +
+            "jam2in-s003:20000," +
+            "jam2in-s004:20000," +
+            "jam2in-s005:20000", "TTA-mc-cdc");
   }
 
   @Test

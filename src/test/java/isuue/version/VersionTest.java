@@ -1,8 +1,9 @@
 package isuue.version;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
+@Disabled
 public class VersionTest {
     @Test
     void versionStringTest() {

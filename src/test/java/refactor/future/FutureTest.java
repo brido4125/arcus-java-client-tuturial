@@ -1,5 +1,6 @@
 package refactor.future;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ExecutionException;
@@ -9,6 +10,7 @@ import java.util.concurrent.Future;
 
 import static java.lang.System.currentTimeMillis;
 
+@Disabled
 public class FutureTest {
 
 

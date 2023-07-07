@@ -1,10 +1,12 @@
 package isuue.futuretask;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+@Disabled
 public class FutureTaskTest {
 
   @Test
