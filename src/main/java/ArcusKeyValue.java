@@ -5,6 +5,7 @@ import net.spy.memcached.ops.StatusCode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 public class ArcusKeyValue extends ArcusInfo{
     public ArcusKeyValue(String arcusAdmin, String serviceCode) {
@@ -23,5 +24,27 @@ public class ArcusKeyValue extends ArcusInfo{
             e.printStackTrace();
         }
         return false;
+    }
+
+    public Object getDataWithTimeOut(String key) {
+        GetFuture<Object> getFuture = arcusClient.asyncGet(key);
+        try {
+            return getFuture.get(1, TimeUnit.NANOSECONDS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("e.getMessage() = " + e.getMessage());
+        }
+        return null;
+    }
+
+    public Object getData(String key) {
+        GetFuture<Object> getFuture = arcusClient.asyncGet(key);
+        try {
+            return getFuture.get(700, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("e.getMessage() = " + e.getMessage());
+        }
+        return null;
     }
 }
