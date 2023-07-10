@@ -130,7 +130,7 @@ public class ArcusBopTest {
         arcusClient.insertBop(TEST_PREFIX + ":C", 12L, "VALUE4", collectionAttributes);
         arcusClient.insertBop(TEST_PREFIX + ":C", 16L, "VALUE5", collectionAttributes);
 
-        List<String> keyList = new ArrayList<>() {
+        List<String> keyList = new ArrayList<String>() {
             {
                 add(TEST_PREFIX + ":A");
                 add(TEST_PREFIX + ":B");
