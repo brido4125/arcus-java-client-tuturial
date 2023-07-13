@@ -32,4 +32,14 @@ public class TimeoutTest {
       arcusClient.getDataWithTimeOut(TEST_KEY);
     }
   }
+
+  @Test
+  void timeoutTest2() {
+    arcusClient.setData(TEST_KEY, 3, FOO_VAL);
+    for (int i = 0; i < 11; i++) {
+      arcusClient.getDataWithTimeOut(TEST_KEY);
+    }
+    Object data = arcusClient.getData(TEST_KEY);
+    System.out.println("data = " + data);
+  }
 }

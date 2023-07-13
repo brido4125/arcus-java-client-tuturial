@@ -32,7 +32,6 @@ public class ArcusKeyValue extends ArcusInfo{
             return getFuture.get(1, TimeUnit.NANOSECONDS);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("e.getMessage() = " + e.getMessage());
         }
         return null;
     }
@@ -40,7 +39,7 @@ public class ArcusKeyValue extends ArcusInfo{
     public Object getData(String key) {
         GetFuture<Object> getFuture = arcusClient.asyncGet(key);
         try {
-            return getFuture.get(700, TimeUnit.MILLISECONDS);
+            return getFuture.get(1000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("e.getMessage() = " + e.getMessage());
