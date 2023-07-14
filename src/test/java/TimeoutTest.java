@@ -27,7 +27,7 @@ public class TimeoutTest {
   @Test
   void timeoutTest() throws InterruptedException {
     arcusClient.setData(TEST_KEY, 3, FOO_VAL);
-    for (int i = 0; i < 15; i++) {
+    for (int i = 0; i < 150; i++) {
       Thread.sleep(100);
       arcusClient.getDataWithTimeOut(TEST_KEY);
     }
