@@ -1,16 +1,11 @@
 package isuue.privated;
 
 public class Parent {
-  private String name;
-  private int age;
-  private String car;
+  private final String name;
+  private final int age;
 
-  public Parent(Parent parent) {
-    this.name = parent.name;
-    this.age = parent.age;
-  }
-
-  private void test(Parent parent) {
-    int age1 = parent.age;
+  public Parent(Parent copy) {
+    this.name = copy.name;
+    this.age = copy.age;
   }
 }
