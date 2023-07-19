@@ -3,6 +3,7 @@ package isuue.sync;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -74,6 +75,18 @@ public class SyncTest {
     * synchronized -> block 내의 로직에만 영향을 줌
     * synchronized 인자는 인스터스 참조여야함
     * */
+    @Test
+    @DisplayName("synchronized의 인자가 this이더라도 객체 자체에는 접근 및 가능함, 단 block된 로직 또는 메서드는 접근 불가")
+    void thisTest() {
+        Car car = new Car("bmw", "red");
+        Thread thread1 = new Thread(car::print);
+        Thread thread2 = new Thread(() -> {
+            System.out.println("car.getColor() = " + car.getColor());
+        });
+        thread1.start();
+        thread2.start();
+    }
+
     void setUp() {
         if (!TEST.equals("INIT")) {
             System.out.println("TEST = " + TEST);
@@ -89,13 +102,38 @@ public class SyncTest {
         latch.countDown();
     }
 
-    void sleep(long ms) {
+    private static class Car {
+        private final String name;
+        private final String color;
+
+        public Car(String name, String color) {
+            this.name = name;
+            this.color = color;
+        }
+
+        public void print() {
+            synchronized (this) {
+                System.out.println("name = " + name);
+                System.out.println("color = " + color);
+                sleep(2000);
+            }
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getColor() {
+            return color;
+        }
+    }
+
+    static void sleep(long ms) {
         try {
             Thread.sleep(ms);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 }
 
