@@ -1,6 +1,9 @@
 import net.spy.memcached.collection.CollectionAttributes;
 import net.spy.memcached.internal.CollectionFuture;
 import net.spy.memcached.ops.CollectionOperationStatus;
+import net.spy.memcached.transcoders.CollectionTranscoder;
+import net.spy.memcached.transcoders.SerializingTranscoder;
+import net.spy.memcached.transcoders.WhalinTranscoder;
 
 import java.util.List;
 import java.util.Map;
@@ -48,7 +51,7 @@ public class ArcusLop extends ArcusInfo{
 
     public List<Object> getLop(String key, int index) {
         Future<List<Object>> future = null;
-        future = arcusClient.asyncLopGet(key, index, false, false);
+        future = arcusClient.asyncLopGet(key, index, false, false, new SerializingTranscoder());
         List<Object> rv = null;
         try {
             rv = future.get(1000L, TimeUnit.MILLISECONDS);

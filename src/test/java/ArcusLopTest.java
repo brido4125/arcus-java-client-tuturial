@@ -20,7 +20,7 @@ public class ArcusLopTest {
 
     @BeforeEach
     public void set() {
-        arcusClient = new ArcusLop("127.0.0.1:2191", "brido");
+        arcusClient = new ArcusLop("127.0.0.1:2181", "test");
     }
 
     @AfterEach
