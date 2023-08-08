@@ -6,7 +6,7 @@ public class MainTest {
 
   @Test
   void mainTest() {
-    Child child = new Child();
+    Parent child = new Child();
     child.doSomething();
   }
 }
