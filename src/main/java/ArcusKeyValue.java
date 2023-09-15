@@ -1,6 +1,7 @@
 import net.spy.memcached.internal.GetFuture;
 import net.spy.memcached.internal.OperationFuture;
 import net.spy.memcached.ops.StatusCode;
+import net.spy.memcached.transcoders.SerializingTranscoder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,9 +38,8 @@ public class ArcusKeyValue extends ArcusInfo{
     }
 
     public Object getData(String key) {
-        GetFuture<Object> getFuture = arcusClient.asyncGet(key);
         try {
-            return getFuture.get(1000, TimeUnit.MILLISECONDS);
+            return arcusClient.asyncGet(key, new SerializingTranscoder()).get(1000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("e.getMessage() = " + e.getMessage());
