@@ -42,9 +42,7 @@ public class MainTest {
   void thenApply() throws ExecutionException, InterruptedException {
     CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
       return "Thread: " + Thread.currentThread().getName();
-    }).thenApply(s -> {
-      return s.toUpperCase();
-    });
+    }).thenApply(String::toUpperCase);
 
     System.out.println(future.get());
   }
@@ -62,8 +60,9 @@ public class MainTest {
   }
 
   @Test
-  void whenComplete() {
+  void whenComplete() throws InterruptedException {
     runTasks(0);
+    Thread.sleep(1000);
     runTasks(2);
   }
 
@@ -71,6 +70,7 @@ public class MainTest {
     System.out.printf("-- input: %s --%n", i);
     CompletableFuture
             .supplyAsync(() -> {
+              log("supply async thread");
               return 16 / i;
             })
             .whenComplete((input, exception) -> {
