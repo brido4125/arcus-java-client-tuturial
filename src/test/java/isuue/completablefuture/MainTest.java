@@ -74,6 +74,11 @@ public class MainTest {
               return 16 / i;
             })
             .whenComplete((input, exception) -> {
+              // input은 supplyAsync를 통해 건네진 Future가 가지는 return 값.
+              // exception은 supplyAsync를 통해 건네진 Future가 던지는 exception
+              // whenComplete 인자 -> BiConsumer( ? super T, Throwable)
+              // T 타입의 상위 타입과 Throwable(모든 예외와 에러의 조상 클래스)
+              System.out.println("exception = " + exception);
               log("when complete start");
               if (exception != null) {
                 System.out.println("exception occurs");
