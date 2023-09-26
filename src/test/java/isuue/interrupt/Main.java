@@ -4,12 +4,12 @@ public class Main {
   public static void main(String[] args) {
     Thread target = new TargetThread();
 
-    target.setUncaughtExceptionHandler(((t, e) -> {
-      System.out.println(Thread.currentThread().getName());
-      System.out.println("e = " + e);
-      System.out.println("t.isInterrupted() = " + t.isInterrupted());
-      System.out.println("Uncaught exception in thread " + t.getName() + ": " + e);
-    }));
+//    target.setUncaughtExceptionHandler(((t, e) -> {
+//      System.out.println(Thread.currentThread().getName());
+//      System.out.println("e = " + e);
+//      System.out.println("t.isInterrupted() = " + t.isInterrupted());
+//      System.out.println("Uncaught exception in thread " + t.getName() + ": " + e);
+//    }));
 
     target.start();
     try {
@@ -33,10 +33,12 @@ public class Main {
           Thread.sleep(100);
         } catch (InterruptedException e) {
           System.out.println("Interrupted!");
-          Thread.currentThread().interrupt();
-          throw new RuntimeException();
+          System.out.println("Thread.currentThread().isInterrupted() = " + Thread.currentThread().isInterrupted());
+//          Thread.currentThread().interrupt();
+//          throw new RuntimeException();
         }
       }
+      System.out.println("here");
     }
   }
 }
