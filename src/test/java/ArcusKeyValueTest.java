@@ -18,7 +18,7 @@ public class ArcusKeyValueTest {
 
     @BeforeEach
     public void set() {
-        arcusClient = new ArcusKeyValue("127.0.0.1:2191", "brido");
+        arcusClient = new ArcusKeyValue("61.97.185.90:2181", "test");
     }
 
 //    @AfterEach

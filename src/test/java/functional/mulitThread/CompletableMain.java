@@ -40,7 +40,7 @@ public class CompletableMain {
             System.out.println("Hello" + Thread.currentThread().getName());
             return Thread.currentThread().getName();
         });
-        cf2.thenAccept(String::toLowerCase);
+        CompletableFuture<Void> consumer = cf2.thenAccept(String::toLowerCase);
 
         //aysnc하게 동작만 수행 -> thenRun Runnable을 인자로 받음
         CompletableFuture<String> cf3 = CompletableFuture.supplyAsync(() -> {
