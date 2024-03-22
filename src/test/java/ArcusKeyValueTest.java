@@ -1,9 +1,11 @@
 import net.spy.memcached.ops.StatusCode;
+import net.spy.memcached.util.BTreeUtil;
 import org.junit.jupiter.api.*;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Flow;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +20,7 @@ public class ArcusKeyValueTest {
 
     @BeforeEach
     public void set() {
-        arcusClient = new ArcusKeyValue("61.97.185.90:2181", "test");
+        arcusClient = new ArcusKeyValue("127.0.0.1:2181", "test");
     }
 
 //    @AfterEach
@@ -34,12 +36,14 @@ public class ArcusKeyValueTest {
     }
 
 //
-//    @Test
-//    @DisplayName("Key-Value ADD API 저장 성공 테스트")
-//    void dataAddTest() {
-//        StatusCode statusCode = arcusClient.addData("test", 3, "Brido");
-//        assertThat(statusCode).isEqualTo(StatusCode.SUCCESS);
-//    }
+    @Test
+    @DisplayName("Key-Value ADD API 저장 성공 테스트")
+    void dataAddTest() {
+        byte[] bytes = TEST_KEY.getBytes();
+        System.out.println("bytes.length = " + bytes.length);
+        boolean result = arcusClient.setData("test", 3, "Brido");
+        assertThat(result).isTrue();
+    }
 //
 //    @Test
 //    @DisplayName("중복 데이터 Key-Value ADD API 저장 실패 테스트")

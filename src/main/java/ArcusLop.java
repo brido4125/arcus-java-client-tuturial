@@ -39,7 +39,7 @@ public class ArcusLop extends ArcusInfo{
     * */
     public Map<String, CollectionOperationStatus> insertLopBulk(List<String> keyList, Object element, CollectionAttributes attributesForCreate) {
         Future<Map<String, CollectionOperationStatus>> future = null;
-        future = arcusClient.asyncLopInsertBulk(keyList, 0, element, attributesForCreate);
+        future = arcusClient.asyncLopInsertBulk(keyList, 0, element, null);
         Map<String, CollectionOperationStatus> rv = null;
         try {
             rv = future.get(1000L, TimeUnit.MILLISECONDS);
