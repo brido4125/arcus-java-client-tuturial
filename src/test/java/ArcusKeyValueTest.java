@@ -44,6 +44,49 @@ public class ArcusKeyValueTest {
         boolean result = arcusClient.setData("test", 3, "Brido");
         assertThat(result).isTrue();
     }
+
+    @Test
+    void longTest() throws InterruptedException {
+        for (int i = 0; i < 100; i++) {
+            boolean result = arcusClient.setData("test", 3, "Brido");
+            System.out.println("result = " + result);
+            Thread.sleep(200);
+        }
+    }
+
+    @Test
+    void nullString() {
+        String result = null + "hello";
+        System.out.println("결과: " + result);
+    }
+
+    private long length = (long) Math.pow(2, 62);
+    private String key = "keyForLock";
+    int hash = Math.abs(key.hashCode());
+
+    @Test
+    public void mod() {
+        long modStart = Util.currentTimeNanos();
+        long modResult = hash % length;
+//        System.out.println("modResult = " + modResult);
+        long modEnd = Util.currentTimeNanos() - modStart;
+
+
+        long bitStart = Util.currentTimeNanos();
+        long bit = (hash & (length - 1));
+//        System.out.println("bit = " + bit);
+        long bitEnd = Util.currentTimeNanos() - bitStart;
+
+        System.out.println("modEnd = " + modEnd);
+        System.out.println("bitEnd = " + bitEnd);
+    }
+
+    private static class Util {
+        private final static long currentTimeNanosOffset = (System.currentTimeMillis() * 1000000) - System.nanoTime();
+        public static long currentTimeNanos() {
+            return System.nanoTime() + currentTimeNanosOffset;
+        }
+    }
 //
 //    @Test
 //    @DisplayName("중복 데이터 Key-Value ADD API 저장 실패 테스트")

@@ -29,9 +29,9 @@
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.navercorp.arcus/arcus-java-client -->
         <dependency>
-            <groupId>com.navercorp.arcus</groupId>
+            <groupId>com.jam2in.arcus</groupId>
             <artifactId>arcus-java-client</artifactId>
-            <version>1.13.2</version>
+            <version>1.13.4</version>
         </dependency>
 
 

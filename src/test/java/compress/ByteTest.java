@@ -4,6 +4,7 @@ import net.spy.memcached.util.BTreeUtil;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeMap;
 
@@ -28,5 +29,12 @@ public class ByteTest {
 
     Assertions.assertThat(treeMap.firstKey()).isEqualTo(new byte[]{(byte) 0});
     Assertions.assertThat(treeMap.lastKey()).isEqualTo(new byte[]{(byte) 3});
+  }
+
+  @Test
+  void aryList() {
+    ArrayList<Object> objects = new ArrayList<>(0);
+    objects.add("String");
+    System.out.println("objects = " + objects);
   }
 }
