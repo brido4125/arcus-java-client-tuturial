@@ -2,7 +2,10 @@ import net.spy.memcached.ops.StatusCode;
 import net.spy.memcached.util.BTreeUtil;
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Flow;
@@ -66,19 +69,34 @@ public class ArcusKeyValueTest {
 
     @Test
     public void mod() {
+        int bitCount = 0;
+        int modCount = 0;
+        int sameCount = 0;
+
+        List<Long> list = new ArrayList<>();
+
+        for (int i = 0; i < 10000; i++) {
+            long mod = modTest();
+            long bit = bitTest();
+            list.add(Math.abs(mod - bit));
+        }
+
+        int avg = (list.stream().reduce(0L, Long::sum).intValue()) / 10000;
+        System.out.println("avg = " + avg);
+    }
+
+    private long modTest() {
         long modStart = Util.currentTimeNanos();
         long modResult = hash % length;
 //        System.out.println("modResult = " + modResult);
-        long modEnd = Util.currentTimeNanos() - modStart;
+      return Util.currentTimeNanos() - modStart;
+    }
 
-
+    private long bitTest() {
         long bitStart = Util.currentTimeNanos();
         long bit = (hash & (length - 1));
 //        System.out.println("bit = " + bit);
-        long bitEnd = Util.currentTimeNanos() - bitStart;
-
-        System.out.println("modEnd = " + modEnd);
-        System.out.println("bitEnd = " + bitEnd);
+        return Util.currentTimeNanos() - bitStart;
     }
 
     private static class Util {
