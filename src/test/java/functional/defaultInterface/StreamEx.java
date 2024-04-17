@@ -41,7 +41,7 @@ public class StreamEx {
         System.out.println("close 되지 않은 수업");
         List<OnlineClass> notClosed = mergerList(springClasses, javaClasses)
             .stream()
-            .filter(Predicate.not(OnlineClass::isClosed))
+//            .filter(Predicate.not(OnlineClass::isClosed))
             .collect(Collectors.toList());
         System.out.println("notClosed = " + notClosed);
 
